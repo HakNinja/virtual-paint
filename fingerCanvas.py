@@ -19,7 +19,7 @@ WINDOW_HEIGHT = 600  # Desired height for the output window
 #contants
 ml = 150
 max_x, max_y = 250+ml, 50
-curr_tool = "select tool"
+curr_tool = "Select tool"
 time_init = True
 rad = 40
 var_inits = False
@@ -29,19 +29,19 @@ prevx, prevy = 0,0
 #get tools function
 def getTool(x):
 	if x < 50 + ml:
-		return "line"
+		return "Line"
 
 	elif x<100 + ml:
-		return "rectangle"
+		return "Rectangle"
 
 	elif x < 150 + ml:
-		return"draw"
+		return"Use Pencil"
 
 	elif x<200 + ml:
-		return "circle"
+		return "Circle"
 
 	else:
-		return "erase"
+		return "Erase"
 
 def index_raised(yi, y9):
 	if (y9 - yi) > 40:
@@ -49,7 +49,7 @@ def index_raised(yi, y9):
 
 	return False
 
-
+'''
 tools1 = np.zeros((max_y+5, max_x+5, 3), dtype="uint8")
 cv2.rectangle(tools1, (0,0), (max_x, max_y), (0,0,255), 2)
 cv2.line(tools1, (50,0), (50,50), (0,0,255), 2)
@@ -57,6 +57,8 @@ cv2.line(tools1, (100,0), (100,50), (0,0,255), 2)
 cv2.line(tools1, (150,0), (150,50), (0,0,255), 2)
 cv2.line(tools1, (200,0), (200,50), (0,0,255), 2)
 cv2.namedWindow('Paint', cv2.WINDOW_AUTOSIZE)
+'''
+
 
 
 
@@ -111,7 +113,7 @@ while True:
 				time_init = True
 				rad = 40
 
-			if curr_tool == "draw":
+			if curr_tool == "Use Pencil":
 				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)
 				y9  = int(i.landmark[9].y*480)
 
@@ -125,7 +127,7 @@ while True:
 
 
 
-			elif curr_tool == "line":
+			elif curr_tool == "Line":
 				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)
 				y9  = int(i.landmark[9].y*480)
 
@@ -141,7 +143,7 @@ while True:
 						cv2.line(mask, (xii, yii), (x, y), 0, thick)
 						var_inits = False
 
-			elif curr_tool == "rectangle":
+			elif curr_tool == "Rectangle":
 				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)
 				y9  = int(i.landmark[9].y*480)
 
@@ -157,7 +159,7 @@ while True:
 						cv2.rectangle(mask, (xii, yii), (x, y), 0, thick)
 						var_inits = False
 
-			elif curr_tool == "circle":
+			elif curr_tool == "Circle":
 				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)
 				y9  = int(i.landmark[9].y*480)
 
@@ -173,7 +175,7 @@ while True:
 						cv2.circle(mask, (xii, yii), int(((xii-x)**2 + (yii-y)**2)**0.5), (0,255,0), thick)
 						var_inits = False
 
-			elif curr_tool == "erase":
+			elif curr_tool == "Eraser":
 				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)
 				y9  = int(i.landmark[9].y*480)
 
